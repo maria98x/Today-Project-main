@@ -5,9 +5,17 @@
   .myColor{
     background-color: #57765A !important;
   }
-  .myColor2{
-    background-color:#F9FDF9 !important;
-  }
+  
   .myTextColor{
       color:#57765A !important;
+  }
+  #myBackground{
+    background-image: url('https://www.wjhl.com/wp-content/uploads/sites/98/2020/08/Zach-Irby.jpg?w=1280&h=719&crop=1');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .whiteBackground{
+      background-color: white !important;
+      opacity: 1;
   }
