@@ -19,3 +19,7 @@
       background-color: white !important;
       opacity: 1;
   }
+  .cardSize{
+    height: calc(100% - 15px);
+    margin-bottom: 15px;
+  }
