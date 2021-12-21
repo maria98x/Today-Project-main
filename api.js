@@ -5,31 +5,82 @@ const searchBut = document.querySelector("#search-addon");
 const searchInput2 = document.querySelector("#searchInput2");
 const searchBut2 = document.querySelector("#searchBut2");
 
-let    url = 'https://api.weatherbit.io/v2.0/current?city=Jeddah&key=d212eb8e85624b3085b4f6c368bc209c&include=minutely';
-let url2 = 'https://newsapi.org/v2/top-headlines?category=General&sortBy=popularity&apiKey=5ba5a686789b445bbe3ebae32358f4bb'
+let prev = document.querySelector("#prev");
+let next = document.querySelector("#next");
+let current = document.querySelector("#current");
+
+
+let currentPage =1;
+let prevPage = 0;
+let nextPag=2;
+let totalPages =17;
+
+let url = 'https://api.weatherbit.io/v2.0/current?city=Jeddah&key=d212eb8e85624b3085b4f6c368bc209c&include=minutely';
+let url2 = 'https://newsapi.org/v2/top-headlines?category=General&sortBy=popularity&pageSize=6&page=1&language=en&apiKey=5ba5a686789b445bbe3ebae32358f4bb';
+
+
+next.addEventListener("click", ()=>{
+
+  if (nextPag<=totalPages){
+    nextPag++;
+    prevPage++;
+    currentPage++
+    url2 ="https://newsapi.org/v2/top-headlines?category=General&pageSize=6&page="+currentPage+"&sortBy=popularity&language=en&apiKey=5ba5a686789b445bbe3ebae32358f4bb";
+    setNews();
+    current.innerHTML=currentPage;
+  }
+})
+
+
+
+
+prev.addEventListener("click", ()=>{
+
+  if (prevPage>0){
+    nextPag--;
+    prevPage--;
+    currentPage--;
+    url2 ="https://newsapi.org/v2/top-headlines?category=General&pageSize=6&page="+currentPage+"&sortBy=popularity&language=en&apiKey=5ba5a686789b445bbe3ebae32358f4bb";
+    setNews();
+    current.innerHTML=currentPage;
+    
+  }
+})
+
 
 setNews();
 $('ul.nav-tabs > li').click(function (e) {
-  console.log("heeeerereeeeeeeee")
+
+currentPage =1;
+prevPage = 0;
+ nextPag=2;
   e.preventDefault();
   var getItem = $(this).text();
   var id = this.id;
-  url2 = 'https://newsapi.org/v2/top-headlines?category='+ id +'&from=2021-12-19&sortBy=popularity&apiKey=5ba5a686789b445bbe3ebae32358f4bb';
+  url2 = 'https://newsapi.org/v2/top-headlines?category='+ id +'&pageSize=6&page=1&sortBy=popularity&language=en&apiKey=5ba5a686789b445bbe3ebae32358f4bb';
   setNews();
+  current.innerHTML=currentPage;
 
 });
 
 searchBut2.addEventListener("click",function(){
-  url2 = 'https://newsapi.org/v2/everything?q='+searchInput2.value+'&sortBy=popularity&apiKey=5ba5a686789b445bbe3ebae32358f4bb';
+
+  currentPage =1;
+  prevPage = 0;
+   nextPag=2;
+  url2 = 'https://newsapi.org/v2/everything?q='+searchInput2.value+'&sortBy=popularity&pageSize=6&page=1&language=en&apiKey=5ba5a686789b445bbe3ebae32358f4bb';
   setNews();
+  current.innerHTML=currentPage;
 })
 
 
 setWeather ()
 searchBut.addEventListener("click",function(){
+
     url = 'https://api.weatherbit.io/v2.0/current?city='+searchInput.value+'&key=d212eb8e85624b3085b4f6c368bc209c&include=minutely';
     setWeather ()
 })
+
 
 
 function setWeather (){
@@ -71,8 +122,12 @@ function setWeather (){
 }
 
 function setNews(){
+
   fetch(url2).then((res) => {
     res.json().then((res)=>{
+
+      var myOb= res.articles;
+     console.log(myOb)
     document.getElementById("newsData").innerHTML = res.articles.map(ar =>
         
          `  <div class="col-md-6 col-lg-4 mx-auto my-2" >
@@ -90,8 +145,6 @@ function setNews(){
             ${ar.description}
            </p>
            <p class="card-text">${ar.author} </p>
-           
-          
          </div>
          <div class="card-footer">  <a href="${ar.url}" class="btn myColor text-white ">Read more </a></div>
     
@@ -105,4 +158,6 @@ function setNews(){
     
     
 }
+
+
 
