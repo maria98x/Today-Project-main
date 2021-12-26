@@ -26,3 +26,10 @@ Today's Project is a website that shows you today's news around the world and ca
 ## Future Features:
 - Make the website in a different language and allow the user to select the website language.
 - Adding more filtering options to the site, such as selecting the news' country.
+
+## Demo:
+ [click here to see website](https://maria98x.github.io/Today-Project-main/)
+ 
+ <img src="img/news1.png">
+ <img src="img/news2.png">
+ <img src="img/news3.png">
